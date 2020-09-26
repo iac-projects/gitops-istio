@@ -24,3 +24,22 @@ all: deploy
 deploy:
 	chmod a+x scripts/*.sh ; \
 	./scripts/flux-init.sh $(REPO)
+
+start:
+	minikube start
+
+destroy:
+	minikube delete  --all --purge
+
+
+PHONY: jaeger
+jaeger:
+	kubectl port-forward -n istio-system $$(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}' --context=minikube) --context=minikube 16686:16686
+
+PHONY: kiali
+kiali:
+	kubectl port-forward -n istio-system $$(kubectl get pod -n istio-system -l app=kiali -o jsonpath='{.items[0].metadata.name}' --context=minikube) --context=minikube 20001:20001
+
+PHONY: grafana
+grafana:
+	kubectl port-forward -n istio-system $$(kubectl get pod -n istio-system -l app=grafana -o jsonpath='{.items[0].metadata.name}' --context=minikube) --context=minikube 3000:3000
