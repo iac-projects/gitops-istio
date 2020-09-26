@@ -129,7 +129,22 @@ Flagger will route all traffic to the primary pods and scale to zero the `fronte
 Find the Istio ingress gateway address with:
 
 ```bash
-kubectl -n istio-system get svc istio-ingressgateway -ojson | jq .status.loadBalancer.ingress
+kubectl get svc istio-ingressgateway -n istio-system
+export INGRESS_HOST=$(minikube ip)
+echo $INGRESS_HOST
+
+export INGRESS_HOST=$(kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath='{.items[0].status.hostIP}')
+echo $INGRESS_HOST
+
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+echo $INGRESS_PORT
+
+# kubectl -n istio-system get svc istio-ingressgateway -ojson | jq .status.loadBalancer.ingress
+echo http://$INGRESS_HOST:$INGRESS_PORT
+
+# Kaili
+kubectl apply -f ${ISTIO_HOME}/samples/addons/kiali.yaml
+
 ```
 
 Open a browser and navigate to the ingress address, you'll see the frontend UI.
