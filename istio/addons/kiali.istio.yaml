@@ -13,7 +13,7 @@ spec:
       name: http-kiali
       protocol: HTTP
     hosts:
-    - "*"
+    - "kiali.gitops.tennki.tk"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -22,7 +22,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - "*"
+  - "kiali.gitops.tennki.tk"
   gateways:
   - kiali-gateway
   http:

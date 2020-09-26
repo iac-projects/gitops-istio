@@ -142,8 +142,7 @@ echo $INGRESS_PORT
 # kubectl -n istio-system get svc istio-ingressgateway -ojson | jq .status.loadBalancer.ingress
 echo http://$INGRESS_HOST:$INGRESS_PORT
 
-# Kaili
-kubectl apply -f ${ISTIO_HOME}/samples/addons/kiali.yaml
+
 
 ```
 

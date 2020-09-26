@@ -13,7 +13,7 @@ spec:
       name: http-prom
       protocol: HTTP
     hosts:
-    - "*"
+    - "prometheus.gitops.tennki.tk"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -22,7 +22,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - "*"
+  - "prometheus.gitops.tennki.tk"
   gateways:
   - prometheus-gateway
   http:
