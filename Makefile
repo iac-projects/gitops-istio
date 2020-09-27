@@ -23,6 +23,7 @@ all: deploy
 
 deploy:
 	chmod a+x scripts/*.sh ; \
+	./scripts/istio-init.sh ; \
 	./scripts/flux-init.sh $(REPO)
 
 start:

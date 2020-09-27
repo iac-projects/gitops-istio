@@ -12,7 +12,7 @@ if [[ ! -x "$(command -v helm)" ]]; then
     exit 1
 fi
 
-VERSION=1.7.0
+VERSION=1.7.2
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 curl -sL https://istio.io/downloadIstio | ISTIO_VERSION=${VERSION} sh -
