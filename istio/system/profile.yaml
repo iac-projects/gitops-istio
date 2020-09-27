@@ -5,6 +5,12 @@ metadata:
   name: istio-default
 spec:
   profile: default
+  values:
+    global:
+      mtls:
+        auto: true
+    kiali:
+      createDemoSecret: true
   components:
     pilot:
       k8s:
@@ -12,3 +18,18 @@ spec:
           requests:
             cpu: 10m
             memory: 100Mi
+        hpaSpec:
+          maxReplicas: 3
+          minReplicas: 1
+        tolerations:
+          - key: CriticalAddonsOnly
+            operator: Exists
+  addonComponents:
+    grafana:
+      enabled: true
+    kiali:
+      # Enable the Kiali deployment for a service mesh observability dashboard
+      enabled: true
+    tracing:
+      # Enable the Jaeger deployment for tracing
+      enabled: true
